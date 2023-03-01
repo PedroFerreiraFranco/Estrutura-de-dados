@@ -1,54 +1,23 @@
 #include <stdio.h>
 #include "biblioteca.h"
 
-void converteDecimal(int dec){
+void converteDecimal(int dec, int base){
 	tPilha p;
 	inicializa(&p);
 	while(dec>0){
-		push(&p, dec%2);
-		dec = dec/2;
+		push(&p, dec%base);
+		dec = dec/base;
 	}
 	mostraPilha(p);
-}
-//--------------------------------------------
-void converteOctal(int oct){
-	tPilha p;
-	inicializa(&p);
-	while(oct>0){
-		push(&p, oct%8);
-		oct = oct/8;
-	}
-	mostraPilha(p);
-}
-//--------------------------------------------
-int menu(){
-	int op;
-	printf("1-decimal\n");
-	printf("2-octal\n");
-	printf("0-sair\n\n");
-	scanf("%d",&op);
-	return op;
 }
 //--------------------------------------------
 int main(){
-	int valor,op;
-	return 0;
-	
-	do{
-		op = menu();
-		switch(op){
-			case 1: 
-				printf("Valor para conversao de base: ");
-				scanf("%d",&valor);
-				converteDecimal(valor);
-			break;
-			
-			case 2: 
-				printf("Valor para conversao de base: ");
-				scanf("%d",&valor);
-				converteOctal(valor);
-			break;
-			
-		}
-	}while(op!=0);
+	int valor,base;
+
+		printf("Valor para conversao de base: ");
+		scanf("%d",&valor);
+		printf("Base dsejada: ");
+		scanf("%d",&base);
+		converteDecimal(valor,base);
+
 }
