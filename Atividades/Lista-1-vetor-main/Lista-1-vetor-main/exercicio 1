@@ -1,0 +1,15 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include "vetlib.h"
+
+int main(){
+	int vet[100],n;
+	
+		printf("Quantidade de elementos do vetor: ");
+		scanf("%d",&n);
+
+		leiaVetor(vet,n);
+		printf("Soma dos valores do vetor: %d",somaVet(vet,n));
+		
+	return 0;
+}

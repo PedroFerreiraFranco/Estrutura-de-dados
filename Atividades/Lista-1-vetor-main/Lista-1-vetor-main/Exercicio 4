@@ -1,0 +1,16 @@
+#include <stdio.h>
+#include <string.h>
+#include "vetlib.h"
+
+int main(){
+	int n, vet[100], cont,i;
+	
+	printf("Escreva a quantidade de elementos do vetor: ");
+	scanf("%d",&n);
+	
+	for(i=0;i<n;i++){
+		printf("Valor do vetor na posicao %d:",i);
+		scanf("%d",&vet[i]);
+	}
+	printf("Quantidade de valores impares: %d", vetImpar(n,vet[i]));
+}
