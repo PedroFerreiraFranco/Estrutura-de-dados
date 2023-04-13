@@ -71,7 +71,7 @@ void printLabirinto(char labirinto[MAX][MAX]){
 			i = atual.x;
 			j = atual.y;
 		}else{
-			printf("n„o existe saida");
+			printf("n√£o existe saida");
 		}
 		
 		//procurando S	
