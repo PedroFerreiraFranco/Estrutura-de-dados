@@ -7,9 +7,11 @@ typedef struct no{
 }tno;
 typedef struct{
 	tno *ini,*fim; // head e tail
+	int tamanho;
 }tdeque;
 //-------------------------------
 void inicializa(tdeque *minhaDeque){
+	minhaDeque->tamanho = 0;
 	minhaDeque->ini = NULL;
 	minhaDeque->fim = NULL;
 }
@@ -26,6 +28,7 @@ int addLast(tdeque *minhaDeque, tdado novoDado){
 	else
 	  minhaDeque->fim->prox = novoNo;
 	minhaDeque->fim = novoNo;    	
+	minhaDeque->tamanho++;
 	return 1;
 }
 //---------------------------------------------
@@ -39,6 +42,7 @@ tdado removeFirst(tdeque *minhaDeque){
 	minhaDeque->ini->ant = NULL;
 	    // Alteracao da DEQUE  , o anterior do inicio aponta para NULL
 	free(aux); // limpando a memoria
+	minhaDeque->tamanho--;
 	return retorno; // retorno o dado removido
 }
 //------------------------------
@@ -54,6 +58,7 @@ int addFirst(tdeque *minhaDeque, tdado novoDado){
 	else
 	  minhaDeque->ini->ant = novoNo;
 	minhaDeque->ini = novoNo;    	
+	minhaDeque->tamanho++;
 	return 1;
 }
 //---------------------------------------------
@@ -67,6 +72,7 @@ tdado removeLast(tdeque *minhaDeque){
 	minhaDeque->fim->prox = NULL;
 	    // Alteracao da DEQUE  , o proximo do fim aponta para NULL
 	free(aux); // limpando a memoria
+	minhaDeque->tamanho--;
 	return retorno; // retorno o dado removido
 }
 //------------------------------
@@ -124,7 +130,9 @@ int main(){
 	tdado novoDado;
 	tdeque minhaDeque;
 	inicializa(&minhaDeque);
+			
 	do{
+		printf("Tamanho da Fila: %d\n\n", minhaDeque.tamanho);
 		printf("Ini:%x	Fim:%x\n",minhaDeque.ini, minhaDeque.fim);
 		printList(minhaDeque);
 		op = menu();
