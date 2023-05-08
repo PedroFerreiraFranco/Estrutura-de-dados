@@ -85,6 +85,13 @@ deleteFirst() {
     isEmpty() {
         return this.head === null; 
       }
+//------------------------------------------------------------
+      getFirst(){
+        if(this.isEmpty()){
+          return null;
+          return this.head.data;
+        }
+      }
 
 //------------------------------------------------------------
     forEach(callback) {

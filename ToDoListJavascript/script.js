@@ -23,7 +23,7 @@
       indice.value = "";
       descricao.focus();
       
-
+    
     
     // instanciar nova tarefa e inserir no indice especificado
  }
@@ -36,13 +36,17 @@
     const novaTarefa = new Tarefa(descricao, prioridade, obterDataAtual(), obterHoraAtual());
     let indice = 0;
     let novaPrioridade = parseInt(novaTarefa.prioridade);
+    let retorno = false;
     if(minhaLista.isEmpty())
        retorno = minhaLista.addFirst(novaTarefa);
     else if(novaPrioridade >= minhaLista.last().prioridade )
        retorno = minhaLista.addLast(novaTarefa);
     else if(novaPrioridade < minhaLista.first().prioridade  )
        retorno = minhaLista.addFirst(novaTarefa);
-    else{
+    else if(item.prioridade>novaPrioridade&&retorno==false){
+      addAtIndex(indice,novaTarefa);
+      retorno = true;
+      indice++;
       // implementar a insercao ordenada de acordo com a prioridade
     }
    
@@ -128,4 +132,22 @@ function calcularDiferencaDias(dataInicial, dataFinal) {
   // Converte a diferença de milissegundos para dias e arredonda para baixo
   const diferencaDias = Math.floor(diferencaMs / msPorDia);
   return diferencaDias;
+}
+//--------------------------------------------------------------------------------------------
+function converterDataFormatoISO8601(data) {
+  const partes = data.split('/');
+  const dia = partes[0].padStart(2, '0');
+  const mes = partes[1].padStart(2, '0');
+  const ano = partes[2];
+  return `${ano}-${mes}-${dia}`;
+}
+//--------------------------------------------------------------------------------------------
+function comparaTarefasDataHora(tarefa1, tarefa2) {
+  const dataHoraTarefa1 = new Date(`${converterDataFormatoISO8601(tarefa1.data)}T${tarefa1.hora}`);
+  const dataHoraTarefa2 = new Date(`${converterDataFormatoISO8601(tarefa2.data)}T${tarefa2.hora}`);
+  if (dataHoraTarefa1.getTime() < dataHoraTarefa2.getTime()) {
+    return tarefa1;
+  } else {
+    return tarefa2;
+  }
 }
