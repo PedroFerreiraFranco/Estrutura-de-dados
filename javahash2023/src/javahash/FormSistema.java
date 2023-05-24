@@ -5,13 +5,52 @@ import javax.swing.JOptionPane;
 
 public class FormSistema extends javax.swing.JFrame {
     HashMap<String, Pessoa> meuHash = new HashMap<>();
+    LinkedList<Pessoa> minhaLista = new LinkedList<>();
+    ArrayList<String>arrayBusca = new ArrayList<>();
     
     
     public FormSistema() {
         initComponents();
-        
+        mostra();
     }
 
+    void carregaDados(){
+    String csvFile = "dados.csv";
+    String line = "";
+    String[] pessoa = null;
+    try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+            while ((line = br.readLine()) != null) {
+                 pessoa = line.split(";");
+                 Pessoa p = new Pessoa();
+                 p.setNome(pessoa[0]);
+                 p.setCpf(pessoa[1]);
+                meuHash.put(p.getCpf(), p);
+                minhaLista.add(p);
+                System.out.println(p);
+            }// fim percurso no arquivo
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    void carregaDadosBusca(){
+    String csvFile = "dadosBusca.csv";
+    String line = "";
+    String[] pessoa = null;
+    try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+            while ((line = br.readLine()) != null) {
+                 pessoa = line.split(";");
+                 Pessoa p = new Pessoa();
+                 p.setNome(pessoa[0]);
+                 p.setCpf(pessoa[1]);
+                meuHash.put(p.getCpf(), p);
+                minhaLista.add(p);
+                System.out.println(p);
+            }// fim percurso no arquivo
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -26,6 +65,7 @@ public class FormSistema extends javax.swing.JFrame {
         btnBuscarhm = new javax.swing.JButton();
         btnAddhm = new javax.swing.JButton();
         btnCarrega = new javax.swing.JButton();
+        btnBusca = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         listHashTable = new javax.swing.JTextArea();
@@ -97,6 +137,15 @@ public class FormSistema extends javax.swing.JFrame {
             }
         });
 
+        btnBusca.setFont(new java.awt.Font("Segoe UI Light", 0, 18)); // NOI18N
+        btnBusca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/javahash/clipboard.png"))); // NOI18N
+        btnBusca.setText("Busca Dados");
+        btnBusca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -111,7 +160,8 @@ public class FormSistema extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(btnAddhm, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnCarrega, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnCarrega, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(btnBuscarhm, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(20, Short.MAX_VALUE))))
@@ -123,16 +173,17 @@ public class FormSistema extends javax.swing.JFrame {
                 .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(24, 24, 24)
-                        .addComponent(btnBuscarhm, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(25, 25, 25)
-                .addComponent(btnAddhm, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                        .addComponent(btnBuscarhm, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnAddhm, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnCarrega, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
@@ -187,28 +238,48 @@ public class FormSistema extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
    
     void mostra(){
-        //implementar
-        //mostrar o meuHash no list
+        //mostrar o meu hash no list
+        listHashTable.setText("");
+        if(!meuHash.isEmpty()){
+            for(Map.Entry<String, Pessoa> dado: meuHash.entrySet())//procurar para cada entrada de chave e valor
+            listHashTable.append(dado.getValue()+"\n");
+        }else
+            listHashTable.setText("Tabela vazia!");
     }   
      
     
     private void btnBuscarhmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarhmActionPerformed
-        
-            
+        Pessoa p;
+        if(!meuHash.isEmpty()){
+            p = meuHash.get(txtCpf.getText());
+            if(p==null)
+                lblPessoa.setText("Not found");
+            else
+                lblPessoa.setText("Pessoa: "+p.getNome());
+        }
+                txtCpf.setText("");
+        txtNome.setText("");
     }//GEN-LAST:event_btnBuscarhmActionPerformed
 
     private void btnAddhmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddhmActionPerformed
         Pessoa p = new Pessoa();
         p.setNome(txtNome.getText());
-        p.setCpf(txtCpf.getText());
-        
+        p.setCpf(txtCpf.getText());     
         meuHash.put(p.getCpf(), p);
         mostra();
+        txtCpf.setText("");
     }//GEN-LAST:event_btnAddhmActionPerformed
-
+        
     private void btnCarregaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarregaActionPerformed
         // TODO add your handling code here:
+        carregaDados();
+        mostra();
     }//GEN-LAST:event_btnCarregaActionPerformed
+
+    private void btnBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaActionPerformed
+        // TODO add your handling code here:
+        carregaDadosBusca();
+    }//GEN-LAST:event_btnBuscaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -248,6 +319,7 @@ public class FormSistema extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddhm;
+    private javax.swing.JButton btnBusca;
     private javax.swing.JButton btnBuscarhm;
     private javax.swing.JButton btnCarrega;
     private javax.swing.JLabel jLabel1;
