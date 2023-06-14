@@ -1,2 +1,0 @@
-hashTime.hashTime
-hashtime.HashTime
