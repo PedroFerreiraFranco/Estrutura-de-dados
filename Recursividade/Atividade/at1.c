@@ -36,14 +36,14 @@ int fibRecursivo(int n){
 //---------------------------------------------------------------//
 int main(){
 	double ini,fim, trec;
-	int n,i;
+	int n=40,i;
 	long long res;
 	//inicializar o vetor de memorização
 	for(i=0;i<=n;i++)
 		memo[i]=-1;
 
 	ini = clock();	
-	for(i=0;i<=40;i++){
+	for(i=0;i<=n;i++){
 		printf("Termo %d da sequencia de Fibonacci=%d\n",i,fibDinamico(i));
 	}
 	fim = clock();
@@ -51,7 +51,7 @@ int main(){
 	printf("Tempo:%.3lf\n", trec);
 	
 	ini = clock();	
-	for(i=0;i<=40;i++){
+	for(i=0;i<=n;i++){
 		printf("Termo %d da sequencia de Fibonacci=%d\n",i,fibRecursivo(i));
 	}
 	fim = clock();
